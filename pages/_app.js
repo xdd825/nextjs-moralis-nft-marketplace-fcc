@@ -2,6 +2,7 @@ import "../styles/globals.css"
 import { MoralisProvider } from "react-moralis"
 import Header from "../components/Header"
 import Head from "next/head"
+import { NotificationProvider } from "web3uikit"
 
 function MyApp({ Component, pageProps }) {
     return (
@@ -15,8 +16,10 @@ function MyApp({ Component, pageProps }) {
                 appId={process.env.NEXT_PUBLIC_APP_ID}
                 serverUrl={process.env.NEXT_PUBLIC_SERVER_URL}
             >
-                <Header />
-                <Component {...pageProps} />
+                <NotificationProvider>
+                    <Header />
+                    <Component {...pageProps} />
+                </NotificationProvider>
             </MoralisProvider>
         </div>
     )

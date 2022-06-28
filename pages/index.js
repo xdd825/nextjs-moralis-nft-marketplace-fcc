@@ -4,12 +4,12 @@ import { useMoralisQuery, useMoralis } from "react-moralis"
 import NFTBox from "../components/NFTBox"
 
 export default function Home() {
-    const { isWeb3Enabled, account } = useMoralis()
+    const { isWeb3Enabled } = useMoralis()
     const { data: listedNfts, isFetching: fetchingListedNft } = useMoralisQuery(
         "ActiveItem",
         (query) => query.limit(10).descending("tokenId")
     )
-    console.log(listedNfts)
+    // console.log(listedNfts)
     return (
         <div className="container mx-auto">
             <h1 className="py-4 px-4 font-bold text-2xl">Recently Listed</h1>
