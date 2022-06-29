@@ -40,10 +40,12 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
         },
     })
 
+    console.log(nftMarketplaceAbi, marketplaceAddress, price, nftAddress, tokenId)
+
     const { runContractFunction: buyItem } = useWeb3Contract({
         abi: nftMarketplaceAbi,
         contractAddress: marketplaceAddress,
-        function: "buyItem",
+        functionName: "buyItem",
         msgValue: price,
         params: {
             nftAddress: nftAddress,
@@ -79,11 +81,12 @@ export default function NFTBox({ price, nftAddress, tokenId, marketplaceAddress,
             ? setShowModal(true)
             : buyItem({
                   onError: (error) => console.log(error),
-                  onSuccess: () => handleBuyItemSuccess(),
+                  onSuccess: handleBuyItemSuccess,
               })
     }
 
-    const handleBuyItemSuccess = () => {
+    const handleBuyItemSuccess = async (tx) => {
+        tx.wait(1)
         dispatch({
             type: "success",
             message: "Item Bought",
